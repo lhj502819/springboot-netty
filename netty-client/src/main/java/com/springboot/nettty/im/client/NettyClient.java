@@ -1,13 +1,11 @@
 package com.springboot.nettty.im.client;
 
 import com.springboot.nettty.im.client.handler.NettyClinetHandlerInitializer;
-import com.springboot.nettty.im.common.Invocation;
+import com.springboot.nettty.im.common.codec.Invocation;
 import com.springboot.nettty.im.server.handler.NettyServerHandlerInitializer;
 import io.netty.bootstrap.Bootstrap;
-import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
-import io.netty.channel.socket.nio.NioServerSocketChannel;
 import io.netty.channel.socket.nio.NioSocketChannel;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +14,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import java.net.InetSocketAddress;
 
 /**
  * @author li.hongjian

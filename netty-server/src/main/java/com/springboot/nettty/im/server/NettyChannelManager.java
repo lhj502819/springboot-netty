@@ -1,6 +1,6 @@
 package com.springboot.nettty.im.server;
 
-import com.springboot.nettty.im.common.Invocation;
+import com.springboot.nettty.im.common.codec.Invocation;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelId;
 import io.netty.util.AttributeKey;

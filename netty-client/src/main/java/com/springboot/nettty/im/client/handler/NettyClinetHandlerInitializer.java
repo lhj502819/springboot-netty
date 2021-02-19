@@ -1,5 +1,8 @@
 package com.springboot.nettty.im.client.handler;
 
+import com.springboot.nettty.im.common.codec.InvocationDecoder;
+import com.springboot.nettty.im.common.codec.InvocationEncoder;
+import com.springboot.nettty.im.common.dispatcher.MessageDispatcher;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -49,7 +52,11 @@ public class NettyClinetHandlerInitializer extends ChannelInitializer<Channel> {
                 //空闲监测
                 .addLast(new IdleStateHandler(READ_TIME_OUT_SECONDS , 0 , 0))
                 .addLast(new ReadTimeoutHandler(READ_TIME_OUT_SECONDS))
+                //编码器
                 .addLast(new InvocationEncoder())
+                //解码器
+                .addLast(new InvocationDecoder())
+                //消息分发器
                 .addLast(messageDispatcher)
                 //服务端处理器
                 .addLast(nettyServerHandler);

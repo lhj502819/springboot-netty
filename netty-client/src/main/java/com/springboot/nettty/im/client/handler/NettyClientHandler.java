@@ -1,7 +1,7 @@
 package com.springboot.nettty.im.client.handler;
 
 import com.springboot.nettty.im.client.NettyClient;
-import com.springboot.nettty.im.common.Invocation;
+import com.springboot.nettty.im.common.codec.Invocation;
 import com.springboot.nettty.im.server.NettyChannelManager;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleStateEvent;

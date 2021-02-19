@@ -1,5 +1,8 @@
 package com.springboot.nettty.im.server.handler;
 
+import com.springboot.nettty.im.common.codec.InvocationDecoder;
+import com.springboot.nettty.im.common.codec.InvocationEncoder;
+import com.springboot.nettty.im.common.dispatcher.MessageDispatcher;
 import io.netty.channel.Channel;
 import io.netty.channel.ChannelHandler;
 import io.netty.channel.ChannelInitializer;
@@ -26,6 +29,9 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
     @Autowired
     private NettyServerHandler nettyServerHandler;
 
+    @Autowired
+    private MessageDispatcher messageDispatcher;
+
     /**
      * 在每一个客户端与服务端建立完成连接时，服务端会创建一个Channel与之对应，
      * 此时会执行{@link NettyServerHandlerInitializer#initChannel(Channel)}，进行自定义的初始化
@@ -44,6 +50,12 @@ public class NettyServerHandlerInitializer extends ChannelInitializer<Channel> {
         pipeline
                 //空闲监测
                 .addLast(new ReadTimeoutHandler(READ_TIME_OUT_SECONDS))
+                //编码器
+                .addLast(new InvocationEncoder())
+                //解码器
+                .addLast(new InvocationDecoder())
+                //消息分发器
+                .addLast(messageDispatcher)
                 //服务端处理器
                 .addLast(nettyServerHandler);
     }
