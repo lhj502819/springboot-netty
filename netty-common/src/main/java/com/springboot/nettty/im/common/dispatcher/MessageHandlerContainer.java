@@ -20,7 +20,6 @@ import java.util.Objects;
  * @since 2021/2/19
  */
 @Slf4j
-@Component
 public class MessageHandlerContainer implements InitializingBean {
 
     /**
@@ -68,7 +67,8 @@ public class MessageHandlerContainer implements InitializingBean {
         //获得接口的 TYPE数组
         Type[] interfaces = targetClass.getGenericInterfaces();
         Class<?> superclass = targetClass.getSuperclass();
-        while ((Objects.isNull(interfaces) || 0 == interfaces.length) && Objects.nonNull(superclass)) { //此处是以父类的接口为准
+        //此处是以父类的接口为准
+        while ((Objects.isNull(interfaces) || 0 == interfaces.length) && Objects.nonNull(superclass)) {
             interfaces = superclass.getGenericInterfaces();
             superclass = superclass.getSuperclass();
         }

@@ -1,5 +1,7 @@
 package com.springboot.nettty.im.common.codec;
 
+import com.alibaba.fastjson.JSON;
+import com.springboot.nettty.im.common.dispatcher.Message;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +28,11 @@ public class Invocation {
      * 消息：JSON格式
      */
     private String message;
+
+    public Invocation(String type , Message message){
+        this.type = type;
+        this.message = JSON.toJSONString(message);
+    }
 
 
 }

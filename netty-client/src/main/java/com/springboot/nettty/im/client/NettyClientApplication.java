@@ -1,4 +1,4 @@
-package com.springboot.nettty.im;
+package com.springboot.nettty.im.client;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -9,8 +9,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @Date 2021/2/19
  */
 @SpringBootApplication
-public class NettyServerApplication {
+public class NettyClientApplication {
     public static void main(String[] args) {
-        SpringApplication.run(NettyServerApplication.class , args);
+        SpringApplication.run(NettyClientApplication.class , args);
     }
 }

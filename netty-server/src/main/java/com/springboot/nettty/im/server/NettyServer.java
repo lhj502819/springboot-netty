@@ -1,6 +1,5 @@
 package com.springboot.nettty.im.server;
 
-import com.springboot.nettty.im.server.handler.NettyServerHandler;
 import com.springboot.nettty.im.server.handler.NettyServerHandlerInitializer;
 import io.netty.bootstrap.ServerBootstrap;
 import io.netty.channel.Channel;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
-import javax.swing.plaf.PanelUI;
 import java.net.InetSocketAddress;
 
 /**

@@ -2,7 +2,7 @@ package com.springboot.nettty.im.client.handler;
 
 import com.springboot.nettty.im.client.NettyClient;
 import com.springboot.nettty.im.common.codec.Invocation;
-import com.springboot.nettty.im.server.NettyChannelManager;
+import com.springboot.nettty.im.server.message.heartbeat.HeartbeatRequest;
 import io.netty.channel.*;
 import io.netty.handler.timeout.IdleStateEvent;
 import lombok.extern.slf4j.Slf4j;
@@ -50,8 +50,8 @@ public class NettyClientHandler extends ChannelInboundHandlerAdapter {
         if(event instanceof IdleStateEvent){
             log.info("[userEventTriggered][发起一次心跳]");
             HeartbeatRequest heartbeatRequest = new HeartbeatRequest();
-            ctx.writeAndFlush(new Invocation(HeartbeatRequest.TYPE) , heartbeatRequest)
-                    .addListener(ChannelFutureListener.CLOSE_ON_FAILURE;
+            ctx.writeAndFlush(new Invocation(HeartbeatRequest.TYPE , heartbeatRequest))
+                    .addListener(ChannelFutureListener.CLOSE_ON_FAILURE);
         }else {
             super.userEventTriggered(ctx , event);
         }

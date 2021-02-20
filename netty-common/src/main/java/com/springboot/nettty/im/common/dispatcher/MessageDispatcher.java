@@ -43,6 +43,16 @@ public class MessageDispatcher extends SimpleChannelInboundHandler<Invocation> {
         Message message = JSON.parseObject(invocation.getMessage(), messageClass);
         //执行逻辑
         executor.submit(()->{
+            /**
+             * 为什么要丢到线程池执行逻辑？
+             *
+             * 答：我们在启动Netty服务端或者客户端的时候都会设置其EventGroup。EventGroup可以先简单理解成一个线程池，并且线程池的大小仅仅是 CPU数量*2
+             * 每个Channel仅仅会被分配到一个线程上，进行数据的读写。并且多个Channel会共享一个线程，即使用同一个线程进行数据的读写。
+             * MessageHandler的具体逻辑视线中，往往会涉及到IO处理，例如说进行数据库的读写。这样就会导致一个Channel在执行MessageHandler的过程中，
+             * 阻塞了共享当前线程的其他Channel的数据读取。
+             *
+             * 因此，在这里创建了executor线程池，进行MessageHandler的逻辑执行，避免阻塞Channel的数据读取
+             */
             messageHandler.execute(ctx.channel() , message);
         });
     }

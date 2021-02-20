@@ -2,7 +2,6 @@ package com.springboot.nettty.im.client;
 
 import com.springboot.nettty.im.client.handler.NettyClinetHandlerInitializer;
 import com.springboot.nettty.im.common.codec.Invocation;
-import com.springboot.nettty.im.server.handler.NettyServerHandlerInitializer;
 import io.netty.bootstrap.Bootstrap;
 import io.netty.channel.*;
 import io.netty.channel.nio.NioEventLoopGroup;
@@ -14,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
+import java.util.concurrent.TimeUnit;
 
 /**
  * @author li.hongjian
@@ -83,7 +83,15 @@ public class NettyClient {
     }
 
     public void reconnect(){
-
+        eventGroup.schedule(() -> {
+            log.info("[#reconnect] [开始重连]");
+            try {
+                start();
+            } catch (InterruptedException e) {
+                log.error("[#reconnect][重连失败]" ,e);
+            }
+        } , RECONNECT_SECONDS , TimeUnit.SECONDS);
+        log.info("[#reconnect][{}秒后将发起重连]" , RECONNECT_SECONDS);
     }
 
     @PreDestroy
